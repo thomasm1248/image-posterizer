@@ -14,8 +14,10 @@ def kmeans(data, k):
         means: array of datapoints that represent the means of each cluster
         classifications: array of integers that assigns each datapoint to a cluster
     '''
-    # Choose some starting means
-    means = None # TODO
+    # Use the first k datapoints as the starting means
+    means = []
+    for i in range(k):
+        means.append(data[i])
     # Put all datapoints in the same group to start with
     classifications = None # TODO
     # Iterate until convergence is reached
