@@ -1,4 +1,5 @@
 import PIL as pl
+import numpy as np
 
 # K-means algorithm
 
@@ -19,7 +20,7 @@ def kmeans(data, k):
     for i in range(k):
         means.append(data[i])
     # Put all datapoints in the same group to start with
-    classifications = None # TODO
+    classifications = np.zeros((len(data)))
     # Iterate until convergence is reached
     changed = False
     while changed == True:
