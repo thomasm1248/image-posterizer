@@ -19,4 +19,9 @@ def kmeans(data, k):
     # Put all datapoints in the same group to start with
     classifications = None # TODO
     # Iterate until convergence is reached
+    changed = False
+    while changed == True:
+        changed = False
+        # Re-classify points and keep running total
+        # Re-calculate means
     return (means, classifications)
