@@ -1,6 +1,14 @@
 import PIL as pl
 import numpy as np
 
+# Distance function to compute distance between two points
+def dist(a, b):
+    sum = 0.
+    for i in range(len(a)):
+        diff = a[i] - b[i]
+        sum += diff**2
+    return sum**.5
+
 # K-means algorithm
 
 def kmeans(data, k):
@@ -20,9 +28,9 @@ def kmeans(data, k):
     for i in range(k):
         means.append(data[i])
     # Put all datapoints in the same group to start with
-    classifications = np.zeros((len(data)))
+    classifications = np.zeros((len(data)), dtype=int)
     # Iterate until convergence is reached
-    changed = False
+    changed = True
     while changed == True:
         changed = False
         # Keep a running total of the points in each cluster
@@ -43,6 +51,8 @@ def kmeans(data, k):
                     closestDistance = distance
                     closestMean = mean
                     closestJ = j
+            print(closestJ)
+            print(closestDistance)
             # Re-assign point to cluster
             if closestJ != classifications[i]:
                 classifications[i] = closestJ
@@ -52,5 +62,5 @@ def kmeans(data, k):
             counts[closestJ] += 1
         # Re-calculate means
         for i in range(len(means)):
-            means[i] = sums[i] / counts[i]
+            means[i] = [sums[i][j] / counts[i] if counts[i] > 0 else data[0][j] for j in range(len(sums[0]))]
     return (means, classifications)
