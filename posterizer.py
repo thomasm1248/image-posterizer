@@ -31,7 +31,7 @@ def dist(a, b):
 
 # K-means algorithm
 
-def kmeans(data, k):
+def kmeans(data, k, max_iter=-1):
     '''
     Classify the data into k clusters.
 
@@ -51,9 +51,10 @@ def kmeans(data, k):
     classifications = np.zeros((len(data)), dtype=int)
     # Iterate until convergence is reached
     changed = True
-    while changed == True:
+    iterations = 0
+    while changed and (max_iter == -1 or iterations < max_iter):
         changed = False
-        # Keep a running total of the points in each cluster
+        # Prepare to keep a running total of the points in each cluster
         sums = []
         counts = []
         for i in range(k):
@@ -65,14 +66,12 @@ def kmeans(data, k):
             closestMean = means[0]
             closestDistance = dist(closestMean, point)
             closestJ = 0
-            for j, mean in zip(range(1, len(means)), means):
+            for j, mean in zip(range(1, len(means)), means[1:]):
                 distance = dist(point, mean)
                 if distance < closestDistance:
                     closestDistance = distance
                     closestMean = mean
                     closestJ = j
-            print(closestJ)
-            print(closestDistance)
             # Re-assign point to cluster
             if closestJ != classifications[i]:
                 classifications[i] = closestJ
@@ -83,6 +82,8 @@ def kmeans(data, k):
         # Re-calculate means
         for i in range(len(means)):
             means[i] = [sums[i][j] / counts[i] if counts[i] > 0 else data[0][j] for j in range(len(sums[0]))]
+        # Increment iteration count
+        iterations += 1
     return (means, classifications)
 
 root = tk.Tk()
