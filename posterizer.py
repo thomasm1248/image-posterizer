@@ -1,5 +1,23 @@
 import PIL as pl
 import numpy as np
+import tkinter as tk
+
+# Upload image via the file path
+def upload_image():
+    file_path = filedialog.askopenfilename()
+    if file_path:
+        original_image = Image.open(file_path)
+        display_image(original_image)
+
+# Display the image using Tkinter
+def display_image(image):
+    global panel
+    if panel is not None:
+        panel.destroy()
+    img = ImageTk.PhotoImage(image)
+    panel = tk.Label(root, image=img)
+    panel.image = img
+    panel.pack()
 
 # Distance function to compute distance between two points
 def dist(a, b):
@@ -64,3 +82,14 @@ def kmeans(data, k):
         for i in range(len(means)):
             means[i] = [sums[i][j] / counts[i] if counts[i] > 0 else data[0][j] for j in range(len(sums[0]))]
     return (means, classifications)
+
+root = tk.Tk()
+root.title("Image Posterizer")
+
+panel = None
+original_image = None
+
+upload_button = tk.Button(root, text="Upload Image", command=upload_image)
+upload_button.pack()
+
+root.mainloop()
