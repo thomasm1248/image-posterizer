@@ -86,6 +86,8 @@ def kmeans(data, k, max_iter=-1):
         iterations += 1
     return (means, classifications)
 
+# Main logic
+
 root = tk.Tk()
 root.title("Image Posterizer")
 
@@ -94,5 +96,8 @@ original_image = None
 
 upload_button = tk.Button(root, text="Upload Image", command=upload_image)
 upload_button.pack()
+
+color_detail = tk.Entry(root)
+color_detail.pack()
 
 root.mainloop()
