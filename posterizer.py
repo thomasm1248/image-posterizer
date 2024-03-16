@@ -2,6 +2,7 @@ import PIL as pl
 import numpy as np
 import tkinter as tk
 from tkinter import filedialog
+from PIL import Image, ImageTk
 
 # Upload image via the file path
 def upload_image():
