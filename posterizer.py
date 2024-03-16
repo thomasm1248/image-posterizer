@@ -8,6 +8,7 @@ from PIL import Image, ImageTk
 def upload_image():
     file_path = filedialog.askopenfilename()
     if file_path:
+        global original_image
         original_image = Image.open(file_path)
         display_image(original_image)
 
@@ -32,7 +33,19 @@ def dist(a, b):
 # Posterization process
 def posterize():
     global color_detail
+    global original_image
     # TODO: posterize the uploaded image, and display the result
+    # Get the pixel values
+    pixels = np.asarray(original_image)
+    # Reshap values
+    width = len(pixels)
+    height = len(pixels[0])
+    pixels = pixels.reshape((width*height,3))
+    print(pixels)
+    # Run kmeans
+    colors, coloring = kmeans(pixels, 10, max_iter=100) # TODO: take number of colors
+    # Generate new image
+    # Display image
 
 # K-means algorithm
 def kmeans(data, k, max_iter=-1):
