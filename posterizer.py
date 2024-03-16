@@ -29,8 +29,12 @@ def dist(a, b):
         sum += diff**2
     return sum**.5
 
-# K-means algorithm
+# Posterization process
+def posterize():
+    global color_detail
+    # TODO: posterize the uploaded image, and display the result
 
+# K-means algorithm
 def kmeans(data, k, max_iter=-1):
     '''
     Classify the data into k clusters.
@@ -99,5 +103,8 @@ upload_button.pack()
 
 color_detail = tk.Entry(root)
 color_detail.pack()
+
+posterize_button = tk.Button(root, text="Posterize", command=posterize)
+posterize_button.pack()
 
 root.mainloop()
