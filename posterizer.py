@@ -42,8 +42,11 @@ def posterize():
     height = len(pixels[0])
     pixels = pixels.reshape((width*height,3))
     print(pixels)
+    # Convert pixel values to float types
+    pixels = pixels.astype(float)
     # Run kmeans
     colors, coloring = kmeans(pixels, 10, max_iter=100) # TODO: take number of colors
+    # Convert pixel values back to uint8
     # Generate new image
     # Display image
 
